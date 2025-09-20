@@ -1,0 +1,26 @@
+{{> header}}
+<h1>Lista de Productos (Vista Estática)</h1>
+
+{{#if error}}
+    <p class="error-message">Error: {{error}}</p>
+{{/if}}
+
+<ul id="productsList">
+    {{#if products.length}}
+        {{#each products}}
+            <li>
+                <div>
+                    <strong>{{this.title}}</strong> - {{this.description}} - Precio: ${{this.price}} - Stock: {{this.stock}} - Categoría: {{this.category}}
+                    {{#if this.thumbnails}}
+                        <img src="{{this.thumbnails}}" width="50">
+                    {{/if}}
+                </div>
+            </li>
+        {{/each}}
+    {{else}}
+        <li class="no-products">No hay productos disponibles.</li>
+    {{/if}}
+</ul>
+
+<a href="/realtimeproducts" class="nav-link">Ir a Vista en Tiempo Real</a>
+{{> footer}}

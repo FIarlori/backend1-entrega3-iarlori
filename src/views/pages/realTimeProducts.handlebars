@@ -1,0 +1,23 @@
+{{> header}}
+<h1>Productos en Tiempo Real</h1>
+
+<a href="/" class="nav-link">← Volver a Lista de Productos (Vista Estática)</a>
+
+<form id="productForm">
+    <h2>Agregar Nuevo Producto</h2>
+    <input type="text" name="title" placeholder="Título" required>
+    <input type="text" name="description" placeholder="Descripción" required>
+    <input type="text" name="code" placeholder="Código único" required>
+    <input type="number" name="price" placeholder="Precio" step="0.01" required min="0">
+    <input type="number" name="stock" placeholder="Stock" required min="0">
+    <input type="text" name="category" placeholder="Categoría" required>
+    <input type="text" name="thumbnails" placeholder="URL de imagen (thumbnail)">
+    <button type="submit">Agregar Producto</button>
+</form>
+
+<h2>Lista de Productos</h2>
+<ul id="productsList"></ul>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realTimeProducts.js"></script>
+{{> footer}}

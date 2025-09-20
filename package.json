@@ -1,0 +1,23 @@
+{
+  "name": "entrega-2-backend",
+  "version": "1.0.0",
+  "description": "API de productos y carritos con persistencia en archivos (Express + FS)",
+  "main": "src/app.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^4.19.2",
+    "express-handlebars": "^8.0.3",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
