@@ -1,13 +1,1 @@
-[
-  {
-    "id": 2,
-    "title": "dsa",
-    "description": "dsa",
-    "code": "321",
-    "price": 200,
-    "status": true,
-    "stock": 20,
-    "category": "dsa",
-    "thumbnails": []
-  }
-]
+[]
