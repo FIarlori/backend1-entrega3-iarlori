@@ -1,0 +1,22 @@
+{{> header}}
+<h1>{{product.title}}</h1>
+
+{{#if error}}
+    <p class="error-message">Error: {{error}}</p>
+{{else}}
+    <div>
+        <strong>Precio:</strong> ${{product.price}}
+        <br><strong>Descripción:</strong> {{product.description}}
+        <br><strong>Stock:</strong> {{product.stock}}
+        <br><strong>Categoría:</strong> {{product.category}}
+        {{#if product.thumbnails.length}}
+            <br><img src="{{product.thumbnails.[0]}}" width="50" alt="{{product.title}}">
+        {{/if}}
+        <br><button onclick="addToCart('{{product._id}}', '{{cartId}}', event)" {{#if (eq product.stock 0)}}disabled{{/if}}>Agregar al Carrito</button>
+    </div>
+{{/if}}
+
+<a href="/products" class="nav-link">Volver a Productos</a>
+{{> footer}}
+
+<script src="/js/productDetail.js"></script>

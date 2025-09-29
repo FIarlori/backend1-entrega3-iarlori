@@ -3,7 +3,7 @@
     "_postman_id": "a1b2c3d4-e5f6-7890",
     "name": "Backend API - Productos y Carritos",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": "Colección para probar los endpoints de productos y carritos"
+    "description": "Colección para probar los endpoints de productos y carritos con MongoDB"
   },
   "item": [
     {
@@ -15,14 +15,61 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/products",
+              "raw": "http://localhost:8080/api/products?limit={{limit}}&page={{page}}&sort={{sort}}&query={{query}}",
               "protocol": "http",
               "host": ["localhost"],
               "port": "8080",
-              "path": ["api", "products"]
-            }
+              "path": ["api", "products"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "{{limit}}",
+                  "description": "Número de productos por página (opcional, default: 10)"
+                },
+                {
+                  "key": "page",
+                  "value": "{{page}}",
+                  "description": "Número de página (opcional, default: 1)"
+                },
+                {
+                  "key": "sort",
+                  "value": "{{sort}}",
+                  "description": "Ordenamiento: 'asc' o 'desc' por precio (opcional)"
+                },
+                {
+                  "key": "query",
+                  "value": "{{query}}",
+                  "description": "Filtro: 'disponible' para stock > 0 o categoría (opcional)"
+                }
+              ]
+            },
+            "description": "Obtiene productos con paginación, filtros y ordenamiento."
           },
-          "response": []
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/products?limit=10&page=1&sort=asc",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "products"],
+                  "query": [
+                    { "key": "limit", "value": "10" },
+                    { "key": "page", "value": "1" },
+                    { "key": "sort", "value": "asc" }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [],
+              "body": "{\n  \"status\": \"success\",\n  \"payload\": [\n    {\n      \"_id\": \"id1\",\n      \"title\": \"Teclado Mecánico\",\n      \"price\": 89.99,\n      \"stock\": 30,\n      \"category\": \"Periféricos\"\n    }\n  ],\n  \"totalPages\": 5,\n  \"prevPage\": null,\n  \"nextPage\": 2,\n  \"page\": 1,\n  \"hasPrevPage\": false,\n  \"hasNextPage\": true,\n  \"prevLink\": null,\n  \"nextLink\": \"/products?limit=10&page=2&sort=asc\"\n}"
+            }
+          ]
         },
         {
           "name": "Crear nuevo producto",
@@ -46,7 +93,32 @@
               "path": ["api", "products"]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Teclado Mecánico\",\n  \"description\": \"Teclado RGB switches azules\",\n  \"code\": \"TEC001\",\n  \"price\": 89.99,\n  \"stock\": 30,\n  \"category\": \"Periféricos\",\n  \"thumbnails\": [\"img/teclado1.jpg\"]\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/products",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "products"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [],
+              "body": "{\n  \"_id\": \"id_generado\",\n  \"title\": \"Teclado Mecánico\",\n  \"description\": \"Teclado RGB switches azules\",\n  \"code\": \"TEC001\",\n  \"price\": 89.99,\n  \"stock\": 30,\n  \"category\": \"Periféricos\",\n  \"thumbnails\": [\"img/teclado1.jpg\"]\n}"
+            }
+          ]
         },
         {
           "name": "Obtener producto por ID",
@@ -67,7 +139,44 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/products/id1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "products", "id1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [],
+              "body": "{\n  \"_id\": \"id1\",\n  \"title\": \"Teclado Mecánico\",\n  \"description\": \"Teclado RGB switches azules\",\n  \"code\": \"TEC001\",\n  \"price\": 89.99,\n  \"stock\": 30,\n  \"category\": \"Periféricos\",\n  \"thumbnails\": [\"img/teclado1.jpg\"]\n}"
+            },
+            {
+              "name": "Error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/products/invalid_id",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "products", "invalid_id"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [],
+              "body": "{\"error\":\"Producto no encontrado\"}"
+            }
+          ]
         },
         {
           "name": "Actualizar producto",
@@ -97,7 +206,32 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Teclado Mecánico Pro\",\n  \"price\": 99.99\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/products/id1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "products", "id1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [],
+              "body": "{\n  \"_id\": \"id1\",\n  \"title\": \"Teclado Mecánico Pro\",\n  \"description\": \"Teclado RGB switches azules\",\n  \"code\": \"TEC001\",\n  \"price\": 99.99,\n  \"stock\": 30,\n  \"category\": \"Periféricos\",\n  \"thumbnails\": [\"img/teclado1.jpg\"]\n}"
+            }
+          ]
         },
         {
           "name": "Eliminar producto",
@@ -118,7 +252,44 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/products/id1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "products", "id1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [],
+              "body": "{\"message\":\"Producto eliminado exitosamente\"}"
+            },
+            {
+              "name": "Error",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/products/invalid_id",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "products", "invalid_id"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [],
+              "body": "{\"error\":\"Producto no encontrado\"}"
+            }
+          ]
         }
       ]
     },
@@ -138,7 +309,26 @@
               "path": ["api", "carts"]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/carts",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "carts"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [],
+              "body": "{\n  \"_id\": \"id_generado\",\n  \"products\": []\n}"
+            }
+          ]
         },
         {
           "name": "Obtener carrito por ID",
@@ -159,7 +349,44 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/carts/id1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "carts", "id1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [],
+              "body": "{\n  \"_id\": \"id1\",\n  \"products\": [\n    {\n      \"product\": {\n        \"_id\": \"pid1\",\n        \"title\": \"Teclado Mecánico\",\n        \"price\": 89.99\n      },\n      \"quantity\": 2\n    }\n  ]\n}"
+            },
+            {
+              "name": "Error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/carts/invalid_id",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "carts", "invalid_id"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [],
+              "body": "{\"error\":\"Carrito no encontrado\"}"
+            }
+          ]
         },
         {
           "name": "Agregar producto al carrito",
@@ -184,9 +411,266 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/carts/id1/product/pid1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "carts", "id1", "product", "pid1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [],
+              "body": "{\n  \"_id\": \"id1\",\n  \"products\": [\n    {\n      \"product\": {\n        \"_id\": \"pid1\",\n        \"title\": \"Teclado Mecánico\",\n        \"price\": 89.99\n      },\n      \"quantity\": 1\n    }\n  ]\n}"
+            },
+            {
+              "name": "Error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/carts/invalid_id/product/pid1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "carts", "invalid_id", "product", "pid1"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [],
+              "body": "{\"error\":\"Carrito no encontrado\"}"
+            }
+          ]
+        },
+        {
+          "name": "Eliminar producto del carrito",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/carts/:cid/products/:pid",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "carts", ":cid", "products", ":pid"],
+              "variable": [
+                {
+                  "key": "cid",
+                  "value": "ID_DEL_CARRITO"
+                },
+                {
+                  "key": "pid",
+                  "value": "ID_DEL_PRODUCTO"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/carts/id1/products/pid1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "carts", "id1", "products", "pid1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [],
+              "body": "{\n  \"_id\": \"id1\",\n  \"products\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "Actualizar todos los productos del carrito",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"products\": [\n    { \"product\": \"pid1\", \"quantity\": 2 },\n    { \"product\": \"pid2\", \"quantity\": 1 }\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/carts/:cid",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "carts", ":cid"],
+              "variable": [
+                {
+                  "key": "cid",
+                  "value": "ID_DEL_CARRITO"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"products\": [\n    { \"product\": \"pid1\", \"quantity\": 2 },\n    { \"product\": \"pid2\", \"quantity\": 1 }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/carts/id1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "carts", "id1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [],
+              "body": "{\n  \"_id\": \"id1\",\n  \"products\": [\n    {\n      \"product\": {\n        \"_id\": \"pid1\",\n        \"title\": \"Teclado Mecánico\",\n        \"price\": 89.99\n      },\n      \"quantity\": 2\n    },\n    {\n      \"product\": {\n        \"_id\": \"pid2\",\n        \"title\": \"Mouse Óptico\",\n        \"price\": 29.99\n      },\n      \"quantity\": 1\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Actualizar cantidad de un producto en el carrito",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 5\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/carts/:cid/products/:pid",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "carts", ":cid", "products", ":pid"],
+              "variable": [
+                {
+                  "key": "cid",
+                  "value": "ID_DEL_CARRITO"
+                },
+                {
+                  "key": "pid",
+                  "value": "ID_DEL_PRODUCTO"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quantity\": 5\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/carts/id1/products/pid1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "carts", "id1", "products", "pid1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [],
+              "body": "{\n  \"_id\": \"id1\",\n  \"products\": [\n    {\n      \"product\": {\n        \"_id\": \"pid1\",\n        \"title\": \"Teclado Mecánico\",\n        \"price\": 89.99\n      },\n      \"quantity\": 5\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Vaciar el carrito",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/carts/:cid",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "carts", ":cid"],
+              "variable": [
+                {
+                  "key": "cid",
+                  "value": "ID_DEL_CARRITO"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/carts/id1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "8080",
+                  "path": ["api", "carts", "id1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [],
+              "body": "{\n  \"_id\": \"id1\",\n  \"products\": []\n}"
+            }
+          ]
         }
       ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "limit",
+      "value": "10",
+      "type": "string"
+    },
+    {
+      "key": "page",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "sort",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "query",
+      "value": "",
+      "type": "string"
     }
   ]
 }

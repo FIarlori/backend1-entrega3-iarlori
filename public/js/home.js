@@ -1,5 +1,3 @@
-const socket = io();
-
 async function checkCartStatus(productId, cartId, button) {
     try {
         const response = await fetch(`/api/carts/${cartId}`);
@@ -11,70 +9,6 @@ async function checkCartStatus(productId, cartId, button) {
         button.disabled = existingProduct ? existingProduct.quantity >= product.stock : product.stock === 0;
     } catch (error) {
         console.error('Error al verificar el carrito:', error);
-    }
-}
-
-function initialize() {
-    const productForm = document.getElementById('productForm');
-    const productsList = document.getElementById('productsList');
-
-    if (!productForm || !productsList) {
-        console.error('No se encontraron los elementos necesarios en el DOM');
-        return;
-    }
-
-    socket.on('updateProducts', (products) => {
-        productsList.innerHTML = '';
-        products.forEach(product => {
-            const li = document.createElement('li');
-            li.innerHTML = `
-                <div>
-                    <strong>${product.title}</strong> - $${product.price}
-                    <br>${product.description}
-                    <br>Stock: ${product.stock} | Categoría: ${product.category}
-                    ${product.thumbnails && product.thumbnails.length ? `<br><img src="${product.thumbnails[0]}" width="50" alt="${product.title}">` : ''}
-                </div>
-                <button onclick="deleteProduct('${product._id}')">Eliminar</button>
-                <button onclick="addToCart('${product._id}', '${cartId}', event)" ${product.stock === 0 ? 'disabled' : ''}>Agregar al Carrito</button>
-            `;
-            productsList.appendChild(li);
-        });
-
-        productsList.querySelectorAll('button[onclick^="addToCart"]').forEach(button => {
-            const match = button.getAttribute('onclick').match(/addToCart\('([^']+)'\, '([^']+)'\, event\)/);
-            if (match) {
-                const productId = match[1];
-                checkCartStatus(productId, cartId, button);
-            }
-        });
-    });
-
-    socket.on('error', (message) => {
-        alert(`Error: ${message}`);
-    });
-
-    productForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const formData = new FormData(productForm);
-        const product = Object.fromEntries(formData);
-        
-        product.price = parseFloat(product.price);
-        product.stock = parseInt(product.stock);
-        
-        if (product.thumbnails) {
-            product.thumbnails = [product.thumbnails];
-        } else {
-            product.thumbnails = [];
-        }
-        
-        socket.emit('addProduct', product);
-        productForm.reset();
-    });
-}
-
-function deleteProduct(id) {
-    if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
-        socket.emit('deleteProduct', id);
     }
 }
 
@@ -136,4 +70,14 @@ document._clickHandler = (e) => {
 };
 document.addEventListener('click', document._clickHandler, { capture: true });
 
-initialize();
+(function() {
+    const buttons = document.querySelectorAll('button[onclick^="addToCart"]');
+    buttons.forEach(button => {
+        const match = button.getAttribute('onclick').match(/addToCart\('([^']+)'\, '([^']+)'\, event\)/);
+        if (match) {
+            const productId = match[1];
+            const cartId = match[2];
+            checkCartStatus(productId, cartId, button);
+        }
+    });
+})();

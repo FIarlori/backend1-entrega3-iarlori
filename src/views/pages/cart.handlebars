@@ -1,0 +1,34 @@
+{{> header}}
+<h1>Carrito {{cart._id}}</h1>
+
+{{#if error}}
+    <p class="error-message">Error: {{error}}</p>
+{{/if}}
+
+<ul id="cartProductsList">
+    {{#if cart.products.length}}
+        {{#each cart.products}}
+            <li>
+                <div>
+                    <strong>{{this.product.title}}</strong>
+                    <br>Cantidad: {{this.quantity}}
+                    <br>Precio Unitario: ${{this.product.price}}
+                    <br>Subtotal: ${{multiply this.quantity this.product.price}}
+                    {{#if this.product.thumbnails.length}}
+                        <br><img src="{{this.product.thumbnails.[0]}}" width="50" alt="{{this.product.title}}">
+                    {{/if}}
+                    <br><button onclick="removeFromCart('{{../cart._id}}', '{{this.product._id}}')">Eliminar</button>
+                </div>
+            </li>
+        {{/each}}
+        <p>Total: ${{reduce cart.products 'product.price' 'quantity'}}</p>
+        <button onclick="clearCart('{{cart._id}}')">Vaciar Carrito</button>
+    {{else}}
+        <li class="no-products">No hay productos en el carrito.</li>
+    {{/if}}
+</ul>
+
+<a href="/products" class="nav-link">Volver a Productos</a>
+{{> footer}}
+
+<script src="/js/cart.js"></script>

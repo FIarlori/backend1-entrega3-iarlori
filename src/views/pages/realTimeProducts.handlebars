@@ -1,7 +1,7 @@
 {{> header}}
 <h1>Productos en Tiempo Real</h1>
 
-<a href="/" class="nav-link">← Volver a Lista de Productos (Vista Estática)</a>
+<a href="/products" class="nav-link">← Volver a Lista de Productos</a>
 
 <form id="productForm">
     <h2>Agregar Nuevo Producto</h2>
@@ -18,6 +18,12 @@
 <h2>Lista de Productos</h2>
 <ul id="productsList"></ul>
 
+<a href="/cart" class="nav-link">Ver Carrito</a>
+
+{{> footer}}
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/realTimeProducts.js"></script>
-{{> footer}}
+<script>
+    let cartId = '{{cartId}}';
+</script>

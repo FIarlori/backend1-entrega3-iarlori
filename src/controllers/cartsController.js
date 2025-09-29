@@ -24,8 +24,50 @@ class CartsController {
     }
 
     async addProductToCart(req, res) {
+        console.log('addProductToCart - cartId:', req.params.cid, 'productId:', req.params.pid);
         try {
             const cart = await this.cartsService.addProductToCart(req.params.cid, req.params.pid);
+            res.json(cart);
+        } catch (error) {
+            console.error('Error en addProductToCart:', error);
+            res.status(400).json({ error: error.message });
+        }
+    }
+
+    async deleteProductFromCart(req, res) {
+        try {
+            const cart = await this.cartsService.deleteProductFromCart(req.params.cid, req.params.pid);
+            res.json(cart);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    }
+
+    async updateCart(req, res) {
+        try {
+            const cart = await this.cartsService.updateCart(req.params.cid, req.body.products);
+            res.json(cart);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    }
+
+    async updateProductQuantity(req, res) {
+        try {
+            const { quantity } = req.body;
+            if (typeof quantity !== 'number' || quantity < 1) {
+                throw new Error('La cantidad debe ser un número mayor o igual a 1');
+            }
+            const cart = await this.cartsService.updateProductQuantity(req.params.cid, req.params.pid, quantity);
+            res.json(cart);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    }
+
+    async clearCart(req, res) {
+        try {
+            const cart = await this.cartsService.clearCart(req.params.cid);
             res.json(cart);
         } catch (error) {
             res.status(400).json({ error: error.message });
