@@ -1,0 +1,880 @@
+[{
+  "_id": {
+    "$oid": "68d814dd4e7a1b450cadcc94"
+  },
+  "title": "Teclado Mecánico 2",
+  "description": "Teclado RGB switches azules",
+  "code": "TEC012",
+  "price": 89.99,
+  "status": true,
+  "stock": 0,
+  "category": "Periféricos",
+  "thumbnails": [
+    "img/teclado1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:46:21.274Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:46:21.274Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d814e04e7a1b450cadcc97"
+  },
+  "title": "Mouse Inalámbrico",
+  "description": "Mouse ergonómico con DPI ajustable",
+  "code": "MOU001",
+  "price": 45.5,
+  "status": true,
+  "stock": 50,
+  "category": "Periféricos",
+  "thumbnails": [
+    "img/mouse1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:46:24.984Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:46:24.984Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d814e34e7a1b450cadcc9a"
+  },
+  "title": "Monitor LED 24\"",
+  "description": "Monitor Full HD con panel IPS",
+  "code": "MON001",
+  "price": 149.99,
+  "status": true,
+  "stock": 20,
+  "category": "Periféricos",
+  "thumbnails": [
+    "img/monitor1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:46:27.847Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:46:27.847Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d814e64e7a1b450cadcc9d"
+  },
+  "title": "Auriculares Bluetooth",
+  "description": "Auriculares inalámbricos con cancelación de ruido",
+  "code": "AUD001",
+  "price": 79.99,
+  "status": true,
+  "stock": 40,
+  "category": "Accesorios",
+  "thumbnails": [
+    "img/auriculares1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:46:30.654Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:46:30.654Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d814e94e7a1b450cadcca0"
+  },
+  "title": "Laptop Gaming",
+  "description": "Laptop con GPU RTX 3060 y 16GB RAM",
+  "code": "LAP001",
+  "price": 1299.99,
+  "status": true,
+  "stock": 15,
+  "category": "Computadoras",
+  "thumbnails": [
+    "img/laptop1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:46:33.345Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:46:33.345Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d814ec4e7a1b450cadcca3"
+  },
+  "title": "SSD 1TB",
+  "description": "Disco sólido NVMe de alta velocidad",
+  "code": "STO001",
+  "price": 99.99,
+  "status": true,
+  "stock": 60,
+  "category": "Almacenamiento",
+  "thumbnails": [
+    "img/ssd1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:46:36.456Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:46:36.456Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d814ef4e7a1b450cadcca6"
+  },
+  "title": "Router Wi-Fi 6",
+  "description": "Router dual-band con cobertura extensa",
+  "code": "NET001",
+  "price": 119.99,
+  "status": true,
+  "stock": 25,
+  "category": "Redes",
+  "thumbnails": [
+    "img/router1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:46:39.567Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:46:39.567Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d814f24e7a1b450cadcca9"
+  },
+  "title": "Cámara Web HD",
+  "description": "Cámara 1080p con micrófono integrado",
+  "code": "CAM001",
+  "price": 49.99,
+  "status": true,
+  "stock": 35,
+  "category": "Periféricos",
+  "thumbnails": [
+    "img/webcam1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:46:42.678Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:46:42.678Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d814f54e7a1b450cadccac"
+  },
+  "title": "Impresora Láser",
+  "description": "Impresora monocromo de alta velocidad",
+  "code": "PRI001",
+  "price": 199.99,
+  "status": true,
+  "stock": 18,
+  "category": "Periféricos",
+  "thumbnails": [
+    "img/impresora1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:46:45.789Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:46:45.789Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d814f84e7a1b450cadccaf"
+  },
+  "title": "Tablet Android",
+  "description": "Tablet 10\" con 64GB almacenamiento",
+  "code": "TAB001",
+  "price": 229.99,
+  "status": true,
+  "stock": 28,
+  "category": "Dispositivos Móviles",
+  "thumbnails": [
+    "img/tablet1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:46:48.890Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:46:48.890Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d814fb4e7a1b450cadccb2"
+  },
+  "title": "Silla Ergonómica",
+  "description": "Silla ajustable con soporte lumbar",
+  "code": "FUR001",
+  "price": 159.99,
+  "status": true,
+  "stock": 45,
+  "category": "Muebles",
+  "thumbnails": [
+    "img/silla1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:46:51.001Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:46:51.001Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d814fe4e7a1b450cadccb5"
+  },
+  "title": "Proyector 4K",
+  "description": "Proyector con 3000 lúmenes",
+  "code": "PRO001",
+  "price": 499.99,
+  "status": true,
+  "stock": 10,
+  "category": "Audio y Video",
+  "thumbnails": [
+    "img/proyector1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:46:54.112Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:46:54.112Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815014e7a1b450cadccb8"
+  },
+  "title": "Smartphone Android",
+  "description": "Teléfono con 128GB y cámara 48MP",
+  "code": "MOB001",
+  "price": 349.99,
+  "status": true,
+  "stock": 55,
+  "category": "Dispositivos Móviles",
+  "thumbnails": [
+    "img/smartphone1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:46:57.223Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:46:57.223Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815044e7a1b450cadccbb"
+  },
+  "title": "Hub USB-C",
+  "description": "Hub con 4 puertos USB y HDMI",
+  "code": "HUB001",
+  "price": 39.99,
+  "status": true,
+  "stock": 70,
+  "category": "Accesorios",
+  "thumbnails": [
+    "img/hub1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:00.334Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:00.334Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815074e7a1b450cadccbe"
+  },
+  "title": "Cargador Inalámbrico",
+  "description": "Cargador Qi de 15W",
+  "code": "CHA001",
+  "price": 29.99,
+  "status": true,
+  "stock": 65,
+  "category": "Accesorios",
+  "thumbnails": [
+    "img/cargador1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:03.445Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:03.445Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d8150a4e7a1b450cadccc1"
+  },
+  "title": "Disco Externo 2TB",
+  "description": "Disco HDD portátil",
+  "code": "STO002",
+  "price": 79.99,
+  "status": true,
+  "stock": 40,
+  "category": "Almacenamiento",
+  "thumbnails": [
+    "img/disco1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:06.556Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:06.556Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d8150d4e7a1b450cadccc4"
+  },
+  "title": "Tarjeta Gráfica RTX 4070",
+  "description": "Tarjeta con 12GB GDDR6X",
+  "code": "GPU001",
+  "price": 599.99,
+  "status": true,
+  "stock": 8,
+  "category": "Componentes",
+  "thumbnails": [
+    "img/gpu1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:09.667Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:09.667Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815104e7a1b450cadccc7"
+  },
+  "title": "Procesador Intel i7",
+  "description": "Procesador de 12 núcleos",
+  "code": "CPU001",
+  "price": 349.99,
+  "status": true,
+  "stock": 25,
+  "category": "Componentes",
+  "thumbnails": [
+    "img/cpu1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:12.778Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:12.778Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815134e7a1b450cadccca"
+  },
+  "title": "Memoria RAM 16GB DDR4",
+  "description": "Módulo RAM 3200MHz",
+  "code": "RAM001",
+  "price": 79.99,
+  "status": true,
+  "stock": 50,
+  "category": "Componentes",
+  "thumbnails": [
+    "img/ram1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:15.889Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:15.889Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815164e7a1b450cadcccd"
+  },
+  "title": "Placa Madre ATX",
+  "description": "Placa con chipset Z590",
+  "code": "MBO001",
+  "price": 199.99,
+  "status": true,
+  "stock": 20,
+  "category": "Componentes",
+  "thumbnails": [
+    "img/placa1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:18.990Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:18.990Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815194e7a1b450cadccd0"
+  },
+  "title": "Fuente de Poder 750W",
+  "description": "Fuente certificada 80+ Gold",
+  "code": "PSU001",
+  "price": 129.99,
+  "status": true,
+  "stock": 30,
+  "category": "Componentes",
+  "thumbnails": [
+    "img/fuente1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:21.101Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:21.101Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d8151c4e7a1b450cadccd3"
+  },
+  "title": "Case PC RGB",
+  "description": "Case con panel lateral de vidrio",
+  "code": "CAS001",
+  "price": 89.99,
+  "status": true,
+  "stock": 35,
+  "category": "Componentes",
+  "thumbnails": [
+    "img/case1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:24.212Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:24.212Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d8151f4e7a1b450cadccd6"
+  },
+  "title": "Cooler CPU",
+  "description": "Disipador de calor con ventilador RGB",
+  "code": "COO001",
+  "price": 59.99,
+  "status": true,
+  "stock": 40,
+  "category": "Componentes",
+  "thumbnails": [
+    "img/cooler1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:27.323Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:27.323Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815224e7a1b450cadccd9"
+  },
+  "title": "Webcam 4K",
+  "description": "Cámara web con resolución ultra HD",
+  "code": "CAM002",
+  "price": 99.99,
+  "status": true,
+  "stock": 25,
+  "category": "Periféricos",
+  "thumbnails": [
+    "img/webcam2.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:30.434Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:30.434Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815254e7a1b450cadccdc"
+  },
+  "title": "Altavoces 2.1",
+  "description": "Sistema de altavoces con subwoofer",
+  "code": "AUD002",
+  "price": 69.99,
+  "status": true,
+  "stock": 45,
+  "category": "Audio y Video",
+  "thumbnails": [
+    "img/altavoces1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:33.545Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:33.545Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815284e7a1b450cadccdf"
+  },
+  "title": "Smart TV 55\"",
+  "description": "TV 4K con HDR y smart apps",
+  "code": "TV001",
+  "price": 599.99,
+  "status": true,
+  "stock": 12,
+  "category": "Audio y Video",
+  "thumbnails": [
+    "img/tv1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:36.656Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:36.656Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d8152b4e7a1b450cadcce2"
+  },
+  "title": "E-reader Kindle",
+  "description": "Lector de libros electrónicos con luz integrada",
+  "code": "ERE001",
+  "price": 129.99,
+  "status": true,
+  "stock": 50,
+  "category": "Dispositivos Móviles",
+  "thumbnails": [
+    "img/ereader1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:39.767Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:39.767Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d8152e4e7a1b450cadcce5"
+  },
+  "title": "Drone con Cámara",
+  "description": "Drone 4K con GPS",
+  "code": "DRO001",
+  "price": 299.99,
+  "status": true,
+  "stock": 15,
+  "category": "Electrónica",
+  "thumbnails": [
+    "img/drone1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:42.878Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:42.878Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815314e7a1b450cadcce8"
+  },
+  "title": "Reloj Inteligente",
+  "description": "Smartwatch con monitor de salud",
+  "code": "WAT001",
+  "price": 199.99,
+  "status": true,
+  "stock": 30,
+  "category": "Dispositivos Móviles",
+  "thumbnails": [
+    "img/watch1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:45.989Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:45.989Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815344e7a1b450cadcceb"
+  },
+  "title": "Bocina Bluetooth",
+  "description": "Bocina portátil con 12h de batería",
+  "code": "SPE001",
+  "price": 49.99,
+  "status": true,
+  "stock": 60,
+  "category": "Audio y Video",
+  "thumbnails": [
+    "img/bocina1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:48.100Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:48.100Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815374e7a1b450cadccee"
+  },
+  "title": "Micrófono USB",
+  "description": "Micrófono condensador para grabación",
+  "code": "MIC001",
+  "price": 89.99,
+  "status": true,
+  "stock": 25,
+  "category": "Audio y Video",
+  "thumbnails": [
+    "img/microfono1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:51.211Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:51.211Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d8153a4e7a1b450cadccf1"
+  },
+  "title": "Controlador MIDI",
+  "description": "Teclado MIDI con 49 teclas",
+  "code": "MID001",
+  "price": 119.99,
+  "status": true,
+  "stock": 20,
+  "category": "Audio y Video",
+  "thumbnails": [
+    "img/midi1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:54.322Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:54.322Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d8153d4e7a1b450cadccf4"
+  },
+  "title": "Switch Ethernet",
+  "description": "Switch de 8 puertos Gigabit",
+  "code": "NET002",
+  "price": 39.99,
+  "status": true,
+  "stock": 40,
+  "category": "Redes",
+  "thumbnails": [
+    "img/switch1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:47:57.433Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:47:57.433Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815404e7a1b450cadccf7"
+  },
+  "title": "NAS 4 Bay",
+  "description": "Almacenamiento en red con 4 bahías",
+  "code": "NAS001",
+  "price": 399.99,
+  "status": true,
+  "stock": 10,
+  "category": "Redes",
+  "thumbnails": [
+    "img/nas1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:48:00.544Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:48:00.544Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815434e7a1b450cadccfa"
+  },
+  "title": "Cámara de Seguridad IP",
+  "description": "Cámara Wi-Fi con visión nocturna",
+  "code": "SEC001",
+  "price": 69.99,
+  "status": true,
+  "stock": 30,
+  "category": "Seguridad",
+  "thumbnails": [
+    "img/camara1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:48:03.655Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:48:03.655Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815464e7a1b450cadccfd"
+  },
+  "title": "Termostato Inteligente",
+  "description": "Termostato compatible con Alexa y Google Home",
+  "code": "SMT001",
+  "price": 129.99,
+  "status": true,
+  "stock": 20,
+  "category": "Hogar Inteligente",
+  "thumbnails": [
+    "img/termostato1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:48:06.766Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:48:06.766Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815494e7a1b450cadcd00"
+  },
+  "title": "Luz Inteligente RGB",
+  "description": "Bombilla Wi-Fi con control por app",
+  "code": "LIG001",
+  "price": 19.99,
+  "status": true,
+  "stock": 100,
+  "category": "Hogar Inteligente",
+  "thumbnails": [
+    "img/luz1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:48:09.877Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:48:09.877Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d8154c4e7a1b450cadcd03"
+  },
+  "title": "Enchufe Inteligente",
+  "description": "Enchufe Wi-Fi con monitoreo de energía",
+  "code": "PLU001",
+  "price": 24.99,
+  "status": true,
+  "stock": 80,
+  "category": "Hogar Inteligente",
+  "thumbnails": [
+    "img/enchufe1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:48:12.988Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:48:12.988Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d8154f4e7a1b450cadcd06"
+  },
+  "title": "Purificador de Aire",
+  "description": "Purificador con filtro HEPA",
+  "code": "AIR001",
+  "price": 149.99,
+  "status": true,
+  "stock": 15,
+  "category": "Hogar Inteligente",
+  "thumbnails": [
+    "img/purificador1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:48:15.099Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:48:15.099Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68d815524e7a1b450cadcd09"
+  },
+  "title": "Robot Aspirador",
+  "description": "Robot aspirador con mapeo inteligente",
+  "code": "ROB001",
+  "price": 299.99,
+  "status": true,
+  "stock": 10,
+  "category": "Hogar Inteligente",
+  "thumbnails": [
+    "img/robot1.jpg"
+  ],
+  "createdAt": {
+    "$date": "2025-09-27T16:48:18.210Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-27T16:48:18.210Z"
+  },
+  "__v": 0
+}]

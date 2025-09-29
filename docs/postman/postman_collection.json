@@ -3,7 +3,7 @@
     "_postman_id": "a1b2c3d4-e5f6-7890",
     "name": "Backend API - Productos y Carritos",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": "Colección para probar los endpoints de productos y carritos con MongoDB"
+    "description": "Colección para probar los endpoints de productos y carritos con MongoDB y parámetros de paginación/filtros."
   },
   "item": [
     {
@@ -15,11 +15,16 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/products?limit={{limit}}&page={{page}}&sort={{sort}}&query={{query}}",
+              "raw": "http://localhost:8080/api/products?limit={{limit}}&page={{page}}&sort={{sort}}&query={{query}}&available={{available}}",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "8080",
-              "path": ["api", "products"],
+              "path": [
+                "api",
+                "products"
+              ],
               "query": [
                 {
                   "key": "limit",
@@ -39,7 +44,12 @@
                 {
                   "key": "query",
                   "value": "{{query}}",
-                  "description": "Filtro: 'disponible' para stock > 0 o categoría (opcional)"
+                  "description": "Filtro: JSON válido (ejemplo: '{\"category\":\"Electrónica\"}') (opcional)"
+                },
+                {
+                  "key": "available",
+                  "value": "{{available}}",
+                  "description": "Filtrar por productos disponibles (true para stock > 0, opcional)"
                 }
               ]
             },
@@ -47,27 +57,136 @@
           },
           "response": [
             {
-              "name": "Success",
+              "name": "Success - Paginación",
               "originalRequest": {
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:8080/api/products?limit=10&page=1&sort=asc",
+                  "raw": "http://localhost:8080/api/products?limit=5&page=1",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "products"],
+                  "path": [
+                    "api",
+                    "products"
+                  ],
                   "query": [
-                    { "key": "limit", "value": "10" },
-                    { "key": "page", "value": "1" },
-                    { "key": "sort", "value": "asc" }
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
                   ]
                 }
               },
               "status": "OK",
               "code": 200,
               "header": [],
-              "body": "{\n  \"status\": \"success\",\n  \"payload\": [\n    {\n      \"_id\": \"id1\",\n      \"title\": \"Teclado Mecánico\",\n      \"price\": 89.99,\n      \"stock\": 30,\n      \"category\": \"Periféricos\"\n    }\n  ],\n  \"totalPages\": 5,\n  \"prevPage\": null,\n  \"nextPage\": 2,\n  \"page\": 1,\n  \"hasPrevPage\": false,\n  \"hasNextPage\": true,\n  \"prevLink\": null,\n  \"nextLink\": \"/products?limit=10&page=2&sort=asc\"\n}"
+              "body": "{\n  \"status\": \"success\",\n  \"payload\": [\n    {\n      \"_id\": \"id1\",\n      \"title\": \"Teclado Mecánico\",\n      \"price\": 89.99,\n      \"stock\": 30,\n      \"category\": \"Periféricos\"\n    },\n    {\n      \"_id\": \"id2\",\n      \"title\": \"Mouse Óptico\",\n      \"price\": 29.99,\n      \"stock\": 20,\n      \"category\": \"Periféricos\"\n    }\n  ],\n  \"totalPages\": 2,\n  \"prevPage\": null,\n  \"nextPage\": 2,\n  \"page\": 1,\n  \"hasPrevPage\": false,\n  \"hasNextPage\": true,\n  \"prevLink\": null,\n  \"nextLink\": \"/products?limit=5&page=2\"\n}"
+            },
+            {
+              "name": "Success - Filtro por disponibles",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/products?limit=10&available=true",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "available",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [],
+              "body": "{\n  \"status\": \"success\",\n  \"payload\": [\n    {\n      \"_id\": \"id1\",\n      \"title\": \"Teclado Mecánico\",\n      \"price\": 89.99,\n      \"stock\": 30,\n      \"category\": \"Periféricos\"\n    },\n    {\n      \"_id\": \"id2\",\n      \"title\": \"Mouse Óptico\",\n      \"price\": 29.99,\n      \"stock\": 20,\n      \"category\": \"Periféricos\"\n    }\n  ],\n  \"totalPages\": 1,\n  \"prevPage\": null,\n  \"nextPage\": null,\n  \"page\": 1,\n  \"hasPrevPage\": false,\n  \"hasNextPage\": false,\n  \"prevLink\": null,\n  \"nextLink\": null\n}"
+            },
+            {
+              "name": "Success - Filtro por categoría",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/products?limit=10&query={\\\"category\\\":\\\"Electrónica\\\"}",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "query",
+                      "value": "{\"category\":\"Electrónica\"}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [],
+              "body": "{\n  \"status\": \"success\",\n  \"payload\": [\n    {\n      \"_id\": \"id3\",\n      \"title\": \"Auriculares Inalámbricos\",\n      \"price\": 49.99,\n      \"stock\": 15,\n      \"category\": \"Electrónica\"\n    }\n  ],\n  \"totalPages\": 1,\n  \"prevPage\": null,\n  \"nextPage\": null,\n  \"page\": 1,\n  \"hasPrevPage\": false,\n  \"hasNextPage\": false,\n  \"prevLink\": null,\n  \"nextLink\": null\n}"
+            },
+            {
+              "name": "Error - Parámetro inválido",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/products?limit=abc&page=1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "abc"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [],
+              "body": "{\"error\":\"Invalid limit value\"}"
             }
           ]
         },
@@ -88,9 +207,14 @@
             "url": {
               "raw": "http://localhost:8080/api/products",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "8080",
-              "path": ["api", "products"]
+              "path": [
+                "api",
+                "products"
+              ]
             }
           },
           "response": [
@@ -99,7 +223,10 @@
               "originalRequest": {
                 "method": "POST",
                 "header": [
-                  { "key": "Content-Type", "value": "application/json" }
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
                 ],
                 "body": {
                   "mode": "raw",
@@ -108,9 +235,14 @@
                 "url": {
                   "raw": "http://localhost:8080/api/products",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "products"]
+                  "path": [
+                    "api",
+                    "products"
+                  ]
                 }
               },
               "status": "Created",
@@ -128,13 +260,19 @@
             "url": {
               "raw": "http://localhost:8080/api/products/:pid",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "8080",
-              "path": ["api", "products", ":pid"],
+              "path": [
+                "api",
+                "products",
+                ":pid"
+              ],
               "variable": [
                 {
                   "key": "pid",
-                  "value": "ID_DEL_PRODUCTO"
+                  "value": "id_generado"
                 }
               ]
             }
@@ -148,9 +286,15 @@
                 "url": {
                   "raw": "http://localhost:8080/api/products/id1",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "products", "id1"]
+                  "path": [
+                    "api",
+                    "products",
+                    "id1"
+                  ]
                 }
               },
               "status": "OK",
@@ -166,9 +310,15 @@
                 "url": {
                   "raw": "http://localhost:8080/api/products/invalid_id",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "products", "invalid_id"]
+                  "path": [
+                    "api",
+                    "products",
+                    "invalid_id"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -195,13 +345,19 @@
             "url": {
               "raw": "http://localhost:8080/api/products/:pid",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "8080",
-              "path": ["api", "products", ":pid"],
+              "path": [
+                "api",
+                "products",
+                ":pid"
+              ],
               "variable": [
                 {
                   "key": "pid",
-                  "value": "ID_DEL_PRODUCTO"
+                  "value": "id_generado"
                 }
               ]
             }
@@ -212,7 +368,10 @@
               "originalRequest": {
                 "method": "PUT",
                 "header": [
-                  { "key": "Content-Type", "value": "application/json" }
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
                 ],
                 "body": {
                   "mode": "raw",
@@ -221,9 +380,15 @@
                 "url": {
                   "raw": "http://localhost:8080/api/products/id1",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "products", "id1"]
+                  "path": [
+                    "api",
+                    "products",
+                    "id1"
+                  ]
                 }
               },
               "status": "OK",
@@ -241,13 +406,19 @@
             "url": {
               "raw": "http://localhost:8080/api/products/:pid",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "8080",
-              "path": ["api", "products", ":pid"],
+              "path": [
+                "api",
+                "products",
+                ":pid"
+              ],
               "variable": [
                 {
                   "key": "pid",
-                  "value": "ID_DEL_PRODUCTO"
+                  "value": "id_generado"
                 }
               ]
             }
@@ -261,9 +432,15 @@
                 "url": {
                   "raw": "http://localhost:8080/api/products/id1",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "products", "id1"]
+                  "path": [
+                    "api",
+                    "products",
+                    "id1"
+                  ]
                 }
               },
               "status": "OK",
@@ -279,9 +456,15 @@
                 "url": {
                   "raw": "http://localhost:8080/api/products/invalid_id",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "products", "invalid_id"]
+                  "path": [
+                    "api",
+                    "products",
+                    "invalid_id"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -304,9 +487,14 @@
             "url": {
               "raw": "http://localhost:8080/api/carts",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "8080",
-              "path": ["api", "carts"]
+              "path": [
+                "api",
+                "carts"
+              ]
             }
           },
           "response": [
@@ -318,9 +506,14 @@
                 "url": {
                   "raw": "http://localhost:8080/api/carts",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "carts"]
+                  "path": [
+                    "api",
+                    "carts"
+                  ]
                 }
               },
               "status": "Created",
@@ -338,13 +531,19 @@
             "url": {
               "raw": "http://localhost:8080/api/carts/:cid",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "8080",
-              "path": ["api", "carts", ":cid"],
+              "path": [
+                "api",
+                "carts",
+                ":cid"
+              ],
               "variable": [
                 {
                   "key": "cid",
-                  "value": "ID_DEL_CARRITO"
+                  "value": "id_generado"
                 }
               ]
             }
@@ -358,9 +557,15 @@
                 "url": {
                   "raw": "http://localhost:8080/api/carts/id1",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "carts", "id1"]
+                  "path": [
+                    "api",
+                    "carts",
+                    "id1"
+                  ]
                 }
               },
               "status": "OK",
@@ -376,9 +581,15 @@
                 "url": {
                   "raw": "http://localhost:8080/api/carts/invalid_id",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "carts", "invalid_id"]
+                  "path": [
+                    "api",
+                    "carts",
+                    "invalid_id"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -396,17 +607,25 @@
             "url": {
               "raw": "http://localhost:8080/api/carts/:cid/product/:pid",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "8080",
-              "path": ["api", "carts", ":cid", "product", ":pid"],
+              "path": [
+                "api",
+                "carts",
+                ":cid",
+                "product",
+                ":pid"
+              ],
               "variable": [
                 {
                   "key": "cid",
-                  "value": "ID_DEL_CARRITO"
+                  "value": "id_generado"
                 },
                 {
                   "key": "pid",
-                  "value": "ID_DEL_PRODUCTO"
+                  "value": "id_generado"
                 }
               ]
             }
@@ -420,9 +639,17 @@
                 "url": {
                   "raw": "http://localhost:8080/api/carts/id1/product/pid1",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "carts", "id1", "product", "pid1"]
+                  "path": [
+                    "api",
+                    "carts",
+                    "id1",
+                    "product",
+                    "pid1"
+                  ]
                 }
               },
               "status": "OK",
@@ -438,9 +665,17 @@
                 "url": {
                   "raw": "http://localhost:8080/api/carts/invalid_id/product/pid1",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "carts", "invalid_id", "product", "pid1"]
+                  "path": [
+                    "api",
+                    "carts",
+                    "invalid_id",
+                    "product",
+                    "pid1"
+                  ]
                 }
               },
               "status": "Bad Request",
@@ -458,17 +693,25 @@
             "url": {
               "raw": "http://localhost:8080/api/carts/:cid/products/:pid",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "8080",
-              "path": ["api", "carts", ":cid", "products", ":pid"],
+              "path": [
+                "api",
+                "carts",
+                ":cid",
+                "products",
+                ":pid"
+              ],
               "variable": [
                 {
                   "key": "cid",
-                  "value": "ID_DEL_CARRITO"
+                  "value": "id_generado"
                 },
                 {
                   "key": "pid",
-                  "value": "ID_DEL_PRODUCTO"
+                  "value": "id_generado"
                 }
               ]
             }
@@ -482,9 +725,17 @@
                 "url": {
                   "raw": "http://localhost:8080/api/carts/id1/products/pid1",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "carts", "id1", "products", "pid1"]
+                  "path": [
+                    "api",
+                    "carts",
+                    "id1",
+                    "products",
+                    "pid1"
+                  ]
                 }
               },
               "status": "OK",
@@ -511,13 +762,19 @@
             "url": {
               "raw": "http://localhost:8080/api/carts/:cid",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "8080",
-              "path": ["api", "carts", ":cid"],
+              "path": [
+                "api",
+                "carts",
+                ":cid"
+              ],
               "variable": [
                 {
                   "key": "cid",
-                  "value": "ID_DEL_CARRITO"
+                  "value": "id_generado"
                 }
               ]
             }
@@ -528,7 +785,10 @@
               "originalRequest": {
                 "method": "PUT",
                 "header": [
-                  { "key": "Content-Type", "value": "application/json" }
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
                 ],
                 "body": {
                   "mode": "raw",
@@ -537,9 +797,15 @@
                 "url": {
                   "raw": "http://localhost:8080/api/carts/id1",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "carts", "id1"]
+                  "path": [
+                    "api",
+                    "carts",
+                    "id1"
+                  ]
                 }
               },
               "status": "OK",
@@ -566,17 +832,25 @@
             "url": {
               "raw": "http://localhost:8080/api/carts/:cid/products/:pid",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "8080",
-              "path": ["api", "carts", ":cid", "products", ":pid"],
+              "path": [
+                "api",
+                "carts",
+                ":cid",
+                "products",
+                ":pid"
+              ],
               "variable": [
                 {
                   "key": "cid",
-                  "value": "ID_DEL_CARRITO"
+                  "value": "id_generado"
                 },
                 {
                   "key": "pid",
-                  "value": "ID_DEL_PRODUCTO"
+                  "value": "id_generado"
                 }
               ]
             }
@@ -587,7 +861,10 @@
               "originalRequest": {
                 "method": "PUT",
                 "header": [
-                  { "key": "Content-Type", "value": "application/json" }
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
                 ],
                 "body": {
                   "mode": "raw",
@@ -596,9 +873,17 @@
                 "url": {
                   "raw": "http://localhost:8080/api/carts/id1/products/pid1",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "carts", "id1", "products", "pid1"]
+                  "path": [
+                    "api",
+                    "carts",
+                    "id1",
+                    "products",
+                    "pid1"
+                  ]
                 }
               },
               "status": "OK",
@@ -616,13 +901,19 @@
             "url": {
               "raw": "http://localhost:8080/api/carts/:cid",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "8080",
-              "path": ["api", "carts", ":cid"],
+              "path": [
+                "api",
+                "carts",
+                ":cid"
+              ],
               "variable": [
                 {
                   "key": "cid",
-                  "value": "ID_DEL_CARRITO"
+                  "value": "id_generado"
                 }
               ]
             }
@@ -636,9 +927,15 @@
                 "url": {
                   "raw": "http://localhost:8080/api/carts/id1",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "8080",
-                  "path": ["api", "carts", "id1"]
+                  "path": [
+                    "api",
+                    "carts",
+                    "id1"
+                  ]
                 }
               },
               "status": "OK",
@@ -655,22 +952,26 @@
     {
       "key": "limit",
       "value": "10",
-      "type": "string"
+      "type": "string",
+      "description": "Número de productos por página (default: 10)"
     },
     {
       "key": "page",
       "value": "1",
-      "type": "string"
+      "type": "string",
+      "description": "Número de página (default: 1)"
     },
     {
       "key": "sort",
       "value": "",
-      "type": "string"
+      "type": "string",
+      "description": "Ordenamiento: 'asc' o 'desc' por precio (no procesado actualmente)"
     },
     {
       "key": "query",
-      "value": "",
-      "type": "string"
+      "value": "{}",
+      "type": "string",
+      "description": "Filtro JSON válido (ejemplo: '{\"category\":\"Electrónica\"}')"
     }
   ]
 }

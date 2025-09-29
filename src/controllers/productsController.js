@@ -7,9 +7,22 @@ class ProductsController {
 
     async getProducts(req, res) {
         try {
-            const { limit, page, sort, query } = req.query;
+            const { limit, page, sort, query, available } = req.query;
             const parsedQuery = query ? JSON.parse(query) : {};
-            const products = await this.productsService.getProducts({ limit, page, sort, query: parsedQuery });
+            let filter = { ...parsedQuery };
+
+            if (available === 'true') {
+                filter.stock = { $gt: 0 };
+            }
+
+            const products = await this.productsService.getProducts({
+                filter,
+                options: {
+                    limit: limit ? parseInt(limit) : 10,
+                    page: page ? parseInt(page) : 1,
+                    sort: sort ? { price: sort === 'asc' ? 1 : -1 } : undefined
+                }
+            });
             res.json(products);
         } catch (error) {
             res.status(500).json({ error: error.message });
