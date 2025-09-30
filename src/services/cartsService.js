@@ -54,21 +54,21 @@ class CartsService {
         return this.getCart(cartId);
     }
 
-    async deleteProductFromCart(cartId, productId) {
-        if (!mongoose.Types.ObjectId.isValid(cartId)) {
-            throw new Error('Carrito no encontrado');
-        }
-
-        const cart = await Cart.findById(cartId);
-        if (!cart) throw new Error('Carrito no encontrado');
-
-        const existingProduct = cart.products.find(p => p.product.toString() === productId);
-        if (!existingProduct) throw new Error('Producto no encontrado en el carrito');
-
-        cart.products = cart.products.filter(p => p.product.toString() !== productId);
-        await cart.save();
-        return this.getCart(cartId);
+async deleteProductFromCart(cartId, productId) {
+    if (!mongoose.Types.ObjectId.isValid(cartId)) {
+        throw new Error('Carrito no encontrado');
     }
+
+    const cart = await Cart.findById(cartId);
+    if (!cart) throw new Error('Carrito no encontrado');
+
+    const existingProductIndex = cart.products.findIndex(p => p.product.toString() === productId);
+    if (existingProductIndex === -1) throw new Error('Producto no encontrado en el carrito');
+
+    cart.products.splice(existingProductIndex, 1);
+    await cart.save();
+    return await Cart.findById(cartId).populate('products.product');
+}
 
     async updateCart(cartId, products) {
         if (!mongoose.Types.ObjectId.isValid(cartId)) {

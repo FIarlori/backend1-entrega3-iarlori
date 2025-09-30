@@ -7,24 +7,26 @@ const { port } = require('./config/environment');
 const registerRoutes = require('./routes');
 const { notFound, serverError } = require('./middleware/errorHandler');
 const ProductsService = require('./services/productsService');
+const CartsService = require('./services/cartsService');
 const connectDB = require('./config/database');
 const path = require('path');
+const Cart = require('./models/Cart');
 
 connectDB();
 
 registerRoutes(app); 
-app.use(express.static(path.join(__dirname, '../../public')));
 
 app.get('/health', (req, res) => {
     res.json({ status: 'Backend en funcionamiento', timestamp: new Date().toISOString() });
 });
 
 const productService = new ProductsService();
+const cartsService = new CartsService();
 io.on('connection', async (socket) => {
     console.log('Cliente conectado');
     
     try {
-        const products = await productService.getProducts({ limit: 100 });
+        const products = await productService.getAllProducts();
         socket.emit('updateProducts', products.payload);
     } catch (error) {
         socket.emit('error', error.message);
@@ -33,7 +35,7 @@ io.on('connection', async (socket) => {
     socket.on('addProduct', async (productData) => {
         try {
             await productService.addProduct(productData);
-            const products = await productService.getProducts({ limit: 100 });
+            const products = await productService.getAllProducts();
             io.emit('updateProducts', products.payload);
         } catch (error) {
             socket.emit('error', error.message);
@@ -42,8 +44,13 @@ io.on('connection', async (socket) => {
 
     socket.on('deleteProduct', async (id) => {
         try {
+            const carts = await Cart.find({ 'products.product': id });
+            for (const cart of carts) {
+                cart.products = cart.products.filter(p => p.product.toString() !== id);
+                await cart.save();
+            }
             await productService.deleteProduct(id);
-            const products = await productService.getProducts({ limit: 100 });
+            const products = await productService.getAllProducts();
             io.emit('updateProducts', products.payload);
         } catch (error) {
             socket.emit('error', error.message);

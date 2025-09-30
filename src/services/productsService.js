@@ -44,6 +44,14 @@ class ProductsService {
         };
     }
 
+    async getAllProducts({ filter = {}, sort = {} } = {}) {
+        const products = await Product.find(filter).sort(sort && Object.keys(sort).length > 0 ? sort : undefined);
+        return {
+            status: 'success',
+            payload: products
+        };
+    }
+
     async getProductById(id) {
         const product = await Product.findById(id);
         if (!product) throw new Error('Producto no encontrado');

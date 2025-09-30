@@ -8,85 +8,87 @@ class ViewsController {
     }
 
 async getHome(req, res) {
-        try {
-            const { limit = 10, page = 1, sort, available, category } = req.query;
-            console.log('getHome - Parámetros:', { limit, page, sort, available, category });
+    try {
+        const { limit = 10, page = 1, sort, available, category } = req.query;
+        console.log('getHome - Parámetros:', { limit, page, sort, available, category });
 
-            const filter = {};
-            if (available === 'true') {
-                filter.stock = { $gt: 0 };
-            }
-            if (category) {
-                filter.category = category;
-            }
-
-            const options = {
-                limit: parseInt(limit),
-                page: parseInt(page),
-                sort: sort ? { price: sort === 'asc' ? 1 : -1 } : {}
-            };
-
-            const products = await this.productsService.getProducts({ filter, options });
-            const plainProducts = {
-                ...products,
-                payload: products.payload.map(doc => doc.toObject())
-            };
-
-            let cartId = req.session.cartId;
-            if (!cartId) {
-                const newCart = await this.cartsService.createCart();
-                cartId = newCart._id.toString();
-                req.session.cartId = cartId;
-                console.log('Nuevo carrito creado con ID:', cartId);
-            }
-
-            res.render('pages/home', { 
-                title: 'Home', 
-                ...plainProducts, 
-                cartId,
-                limit,
-                page,
-                available: available === 'true',
-                category,
-                sort
-            });
-        } catch (error) {
-            console.error('Error en getHome:', error);
-            res.render('pages/home', { 
-                title: 'Home', 
-                error: error.message, 
-                payload: [], 
-                totalPages: 0, 
-                page: 1, 
-                hasPrevPage: false, 
-                hasNextPage: false, 
-                prevLink: null, 
-                nextLink: null, 
-                cartId: null,
-                limit: 10,
-                available: false,
-                category: '',
-                sort: ''
-            });
+        const filter = {};
+        if (available === 'true') {
+            filter.stock = { $gt: 0 };
         }
-    }
-
-    async getRealTimeProducts(req, res) {
-        try {
-            const products = await this.productsService.getProducts({ limit: 100 });
-            const plainProducts = products.payload.map(doc => doc.toObject());
-            let cartId = req.session.cartId;
-            if (!cartId) {
-                const newCart = await this.cartsService.createCart();
-                cartId = newCart._id.toString();
-                req.session.cartId = cartId;
-                console.log('Nuevo carrito creado en realTimeProducts con ID:', cartId);
-            }
-            res.render('pages/realTimeProducts', { title: 'Real-Time Products', products: plainProducts, cartId });
-        } catch (error) {
-            res.render('pages/realTimeProducts', { title: 'Real-Time Products', error: error.message, products: [] });
+        if (category) {
+            filter.category = category;
         }
+
+        const options = {
+            limit: parseInt(limit),
+            page: parseInt(page),
+            sort: sort ? { price: sort === 'asc' ? 1 : -1 } : {}
+        };
+
+        const products = await this.productsService.getProducts({ filter, options });
+        const plainProducts = {
+            ...products,
+            payload: products.payload.map(doc => doc.toObject())
+        };
+
+        let cartId = req.session.cartId;
+        if (!cartId) {
+            const newCart = await this.cartsService.createCart();
+            cartId = newCart._id.toString();
+            req.session.cartId = cartId;
+            console.log('Nuevo carrito creado con ID:', cartId);
+        }
+
+        res.render('pages/home', { 
+            title: 'Home', 
+            ...plainProducts, 
+            cartId,
+            limit,
+            page,
+            available: available === 'true',
+            category,
+            sort
+        });
+    } catch (error) {
+        console.error('Error en getHome:', error);
+        res.render('pages/home', { 
+            title: 'Home', 
+            error: error.message, 
+            payload: [], 
+            totalPages: 0, 
+            page: 1, 
+            hasPrevPage: false, 
+            hasNextPage: false, 
+            prevLink: null, 
+            nextLink: null, 
+            cartId: null,
+            limit: 10,
+            available: false,
+            category: '',
+            sort: ''
+        });
     }
+}
+
+async getRealTimeProducts(req, res) {
+    try {
+        const products = await this.productsService.getAllProducts();
+        const plainProducts = products.payload.map(doc => doc.toObject());
+        let cartId = req.session.cartId;
+        if (!cartId) {
+            const newCart = await this.cartsService.createCart();
+            cartId = newCart._id.toString();
+            req.session.cartId = cartId;
+            console.log('Nuevo carrito creado en realTimeProducts con ID:', cartId);
+        }
+        const io = req.app.get('io');
+        io.emit('updateProducts', plainProducts);
+        res.render('pages/realTimeProducts', { title: 'Real-Time Products', products: plainProducts, cartId });
+    } catch (error) {
+        res.render('pages/realTimeProducts', { title: 'Real-Time Products', error: error.message, products: [] });
+    }
+}
 
     async getProductDetail(req, res) {
         try {
@@ -105,26 +107,36 @@ async getHome(req, res) {
         }
     }
 
-    async getCart(req, res) {
-        try {
-            const cartId = req.session.cartId;
-            if (!cartId) throw new Error('No se encontró un carrito asociado a la sesión');
+async getCart(req, res) {
+    try {
+        const cartId = req.params.cid || req.session.cartId; 
+        if (!cartId) throw new Error('No se encontró un carrito asociado a la sesión');
 
-            const cart = await this.cartsService.getCart(cartId);
-            const plainCart = {
-                ...cart.toObject(),
-                products: cart.products.map(item => ({
-                    ...item.toObject(),
-                    product: item.product.toObject()
-                }))
-            };
-            console.log('Carrito renderizado:', plainCart);
-            res.render('pages/cart', { title: `Carrito ${cartId}`, cart: plainCart });
-        } catch (error) {
-            console.error('Error en getCart:', error);
-            res.render('pages/cart', { title: 'Carrito', error: error.message, cart: { products: [] } });
+        const cart = await this.cartsService.getCart(cartId);
+        if (!cart) {
+            return res.status(404).render('pages/cart', { title: 'Carrito', error: 'Carrito no encontrado' });
         }
+
+        const products = Array.isArray(cart.products) ? cart.products.map(item => {
+            const productData = item.product ? item.product.toObject() : { _id: item.product, title: 'Producto eliminado', price: 0 };
+            return {
+                ...item.toObject(),
+                product: productData
+            };
+        }) : [];
+
+        const plainCart = {
+            ...cart.toObject(),
+            products
+        };
+
+        console.log('Carrito renderizado:', plainCart);
+        res.render('pages/cart', { title: `Carrito ${cartId}`, cart: plainCart });
+    } catch (error) {
+        console.error('Error en getCart:', error);
+        res.status(500).render('pages/cart', { title: 'Carrito', error: error.message, cart: { products: [] } });
     }
+}
 }
 
 module.exports = ViewsController;

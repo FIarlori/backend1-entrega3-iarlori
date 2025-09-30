@@ -89,38 +89,27 @@ function addToCart(productId, cartId, event) {
     button.disabled = true;
     fetch(`/api/carts/${cartId}/product/${productId}`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({})
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
     })
     .then(data => {
-        if (data.error) {
-            alert(`Error: ${data.error}`);
-        } else {
-            alert('Producto añadido al carrito');
-            document.querySelectorAll(`button[onclick^="addToCart('${productId}',"]`).forEach(btn => checkCartStatus(productId, cartId, btn));
-        }
+        if (data.error) alert(`Error: ${data.error}`);
+        else alert('Producto añadido al carrito');
+        document.querySelectorAll(`button[onclick^="addToCart('${productId}',"]`).forEach(btn => checkCartStatus(productId, cartId, btn));
     })
     .catch(error => {
         console.error('Error:', error);
         alert(`Error: ${error.message}`);
     })
-    .finally(() => {
-        button.disabled = false;
-    });
+    .finally(() => { button.disabled = false; });
 }
 
 const existingHandler = document._clickHandler;
-if (existingHandler) {
-    document.removeEventListener('click', existingHandler);
-}
+if (existingHandler) document.removeEventListener('click', existingHandler);
 document._clickHandler = (e) => {
     if (e.target.tagName === 'BUTTON' && e.target.getAttribute('onclick')?.startsWith('addToCart')) {
         e.stopImmediatePropagation();

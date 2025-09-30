@@ -1,4 +1,5 @@
 const ProductsService = require('../services/productsService');
+const mongoose = require('mongoose');
 
 class ProductsController {
     constructor() {
@@ -31,7 +32,11 @@ class ProductsController {
 
     async getProductById(req, res) {
         try {
-            const product = await this.productsService.getProductById(req.params.pid);
+            const { pid } = req.params;
+            if (!mongoose.Types.ObjectId.isValid(pid)) {
+                return res.status(400).json({ error: 'El ID del producto no es válido' });
+            }
+            const product = await this.productsService.getProductById(pid);
             res.json(product);
         } catch (error) {
             res.status(404).json({ error: error.message });
@@ -49,7 +54,11 @@ class ProductsController {
 
     async updateProduct(req, res) {
         try {
-            const product = await this.productsService.updateProduct(req.params.pid, req.body);
+            const { pid } = req.params;
+            if (!mongoose.Types.ObjectId.isValid(pid)) {
+                return res.status(400).json({ error: 'El ID del producto no es válido' });
+            }
+            const product = await this.productsService.updateProduct(pid, req.body);
             res.json(product);
         } catch (error) {
             res.status(400).json({ error: error.message });
@@ -58,7 +67,11 @@ class ProductsController {
 
     async deleteProduct(req, res) {
         try {
-            const result = await this.productsService.deleteProduct(req.params.pid);
+            const { pid } = req.params;
+            if (!mongoose.Types.ObjectId.isValid(pid)) {
+                return res.status(400).json({ error: 'El ID del producto no es válido' });
+            }
+            const result = await this.productsService.deleteProduct(pid);
             res.json(result);
         } catch (error) {
             res.status(404).json({ error: error.message });

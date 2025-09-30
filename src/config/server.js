@@ -23,7 +23,13 @@ module.exports = () => {
             reduce: function (array, priceField, qtyField) {
                 if (!Array.isArray(array)) return 0;
                 return array.reduce((sum, item) => {
-                    const price = Number(item[priceField]?.price) || 0;
+                    let price = 0;
+                    if (typeof priceField === 'string' && priceField.includes('.')) {
+                        const [obj, prop] = priceField.split('.');
+                        price = Number(item[obj] && item[obj][prop] ? item[obj][prop] : 0) || 0;
+                    } else {
+                        price = Number(item[priceField]) || 0;
+                    }
                     const qty = Number(item[qtyField]) || 0;
                     return sum + (price * qty);
                 }, 0);

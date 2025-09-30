@@ -34,14 +34,16 @@ class CartsController {
         }
     }
 
-    async deleteProductFromCart(req, res) {
-        try {
-            const cart = await this.cartsService.deleteProductFromCart(req.params.cid, req.params.pid);
-            res.json(cart);
-        } catch (error) {
-            res.status(400).json({ error: error.message });
-        }
+async deleteProductFromCart(req, res) {
+    try {
+        const cartId = req.params.cid;
+        const productId = req.params.pid;
+        const result = await this.cartsService.deleteProductFromCart(cartId, productId);
+        res.status(200).json({ status: 'success', payload: result });
+    } catch (error) {
+        res.status(400).json({ status: 'error', error: error.message });
     }
+}
 
     async updateCart(req, res) {
         try {
